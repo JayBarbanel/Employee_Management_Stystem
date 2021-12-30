@@ -156,3 +156,21 @@ function startMenu() {
                 "Update an employee role",
             ],
         }, ])
+        .then((answers) => {
+            if (answers.menu === "View all departments") {
+                viewDeparment();
+            } else if (answers.menu === "View all roles") {
+                viewRoles();
+            } else if (answers.menu === "View all employees") {
+                viewEmployees();
+            } else if (answers.menu === "Add a department") {
+                addDepartment();
+            } else if (answers.menu === "Add a role") {
+                addRole();
+            } else if (answers.menu === "Add an employee") {
+                addEmployee();
+            } else {
+                updateEmployee();
+            }
+        });
+}
