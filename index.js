@@ -20,3 +20,9 @@ function viewDeparment() {
         printTable(data);
         startMenu();
     });
+
+    function viewDeparment() {
+        db.query("select * from department", (err, data) => {
+            printTable(data);
+            startMenu();
+        });
