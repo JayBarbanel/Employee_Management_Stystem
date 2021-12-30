@@ -34,3 +34,22 @@ function viewEmployees() {
         printTable(data);
         startMenu();
     });
+}
+
+function addDepartment() {
+    inquirer
+        .prompt([{
+            type: "input",
+            name: "departmentName",
+            message: "Select new department?",
+        }, ])
+        .then((answer) => {
+            db.query(
+                "insert into department (name) values (?)", [answer.departmentName],
+                (err, data) => {
+                    console.log("You succesfully added a new department!");
+                    viewDeparment();
+                }
+            );
+        });
+}
