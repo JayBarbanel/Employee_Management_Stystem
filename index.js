@@ -81,3 +81,36 @@ function addRole() {
                 }
             );
         });
+}
+
+function addEmployee() {
+    inquirer
+        .prompt([{
+                type: "input",
+                name: "employeeFirstName",
+                message: "What is the new employee's first name?",
+            },
+            {
+                type: "input",
+                name: "employeeLastName",
+                message: "What is the new employee's last name",
+            },
+            {
+                type: "input",
+                name: "employeeRoleId",
+                message: "What is the new employee's role ID?",
+            }
+        ])
+        .then((answer) => {
+            db.query(
+                "insert into employee (first_name, last_name, role_id) values (?, ?, ?)", [
+                    answer.employeeFirstName,
+                    answer.employeeLastName,
+                    answer.employeeRoleId,
+                ],
+                (err, data) => {
+                    console.log("Your new Employee has been added!");
+                    viewEmployees();
+                }
+            );
+        });
