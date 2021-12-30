@@ -9,3 +9,14 @@ const db = mysql.createConnection({
     password: "8@Rbanel",
     database: "employee_db",
 });
+
+db.connect((err) => {
+    if (err) throw err;
+    startMenu();
+});
+
+function viewDeparment() {
+    db.query("select * from department", (err, data) => {
+        printTable(data);
+        startMenu();
+    });
