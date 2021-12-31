@@ -1,13 +1,13 @@
 const inquirer = require("inquirer");
 const mysql = require("mysql2");
 require("console.table");
-const { printTable } = require("console-table-printer");
+require("dotenv").config()
 const db = mysql.createConnection({
     host: "localhost",
     port: 3306,
-    user: "root",
-    password: "8@Rbanel",
-    database: "employee_db",
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_DATABASE
 });
 
 db.connect((err) => {
@@ -17,21 +17,24 @@ db.connect((err) => {
 
 function viewDeparment() {
     db.query("select * from department", (err, data) => {
-        printTable(data);
+        if (err) throw (err)
+        console.table(data);
         startMenu();
     });
 }
 
 function viewRoles() {
     db.query("select * from role", (err, data) => {
-        printTable(data);
+        if (err) throw (err)
+        console.table(data);
         startMenu();
     });
 }
 
 function viewEmployees() {
     db.query("select * from employee", (err, data) => {
-        printTable(data);
+        if (err) throw (err)
+        console.table(data);
         startMenu();
     });
 }
@@ -158,8 +161,10 @@ function startMenu() {
         }, ])
         .then((answers) => {
             if (answers.menu === "View all departments") {
+                console.log("departments")
                 viewDeparment();
             } else if (answers.menu === "View all roles") {
+                console.log("roles")
                 viewRoles();
             } else if (answers.menu === "View all employees") {
                 viewEmployees();
